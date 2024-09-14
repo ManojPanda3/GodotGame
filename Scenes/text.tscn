@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://n7h1emejnnju"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1idp5"]
+
+[node name="Node2D" type="Node2D"]
+metadata/Text = ""
+
+[node name="Text" type="Label" parent="."]
+z_index = 10
+offset_left = -65.0
+offset_top = -107.0
+offset_right = 24.0
+offset_bottom = -84.0
+text = "Hello world"
+label_settings = SubResource("LabelSettings_1idp5")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwuoyf633pvf7"]
+
+[ext_resource type="Texture2D" uid="uid://dexruhafs01e7" path="res://Assets/Cute_Fantasy_Free/Player/Ship.png" id="1_418w4"]
+
+[sub_resource type="GDScript" id="GDScript_dmnpg"]
+resource_name = "player.gd"
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 100.0
+const ROTATE_SPEED = 5;
+@onready var boat: Sprite2D = $Boat
+
+var direction = {};
+
+func _physics_process(delta: float) -> void:
+	direction.rotation = Input.get_axis(\"left\", \"right\");
+	direction.x = Input.get_axis(\"down\",\"up\");
+	if(direction.x!=0):
+		velocity.x=direction.x * SPEED * cos(boat.rotation-deg_to_rad(90));
+		velocity.y=direction.x * SPEED * sin(boat.rotation-deg_to_rad(90));
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED);
+		velocity.y = move_toward(velocity.y, 0, SPEED);
+
+	if(direction.rotation!=0):
+		boat.rotate(deg_to_rad(ROTATE_SPEED)*direction.rotation);
+	
+	move_and_slide()
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3rej5"]
+radius = 30.0
+height = 246.0
+
+[node name="Player" type="CharacterBody2D"]
+z_index = 5
+scale = Vector2(0.33, 0.33)
+collision_layer = 2
+collision_mask = 7
+script = SubResource("GDScript_dmnpg")
+
+[node name="Boat" type="Sprite2D" parent="."]
+light_mask = 2
+visibility_layer = 7
+position = Vector2(0, -21)
+texture = ExtResource("1_418w4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+visibility_layer = 7
+shape = SubResource("CapsuleShape2D_3rej5")
