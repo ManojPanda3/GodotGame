@@ -94,7 +94,10 @@ func resize_ocean_grid(new_width, new_height):
 	assign_ocean_conditions()
 	pfz_location = identify_PFZ(pfz_location, pfz_radius)  # Recalculate PFZ location within new grid
 
-# Function to draw the ocean grid and PFZ on the screen
+const initialGridCord:Vector2i=Vector2i(-450,-450)# Function to draw the ocean grid and PFZ on the screen
+# Adjust the padding calculation
+var Padding = initialGridCord / Vector2i(ocean_grid_size_x, ocean_grid_size_y)
+
 func _draw():
 	var cell_size = 40  # Size of each grid cell
 	for x in range(ocean_grid_size_x):
@@ -104,7 +107,11 @@ func _draw():
 			var color_value = (sst - sst_min) / (sst_max - sst_min)
 			var color = Color(1, color_value, 0)  # Red gradient for SST
 
-			draw_rect(Rect2(Vector2(x, y) * cell_size, Vector2(cell_size, cell_size)), color)
+			# Convert Padding from Vector2i to Vector2 to perform the addition
+			var padded_position = (Vector2(x, y) + Vector2(Padding)) * cell_size
+
+			# Draw the rect with the new padded position
+			draw_rect(Rect2(padded_position, Vector2(cell_size, cell_size)), color)
 
 	# Draw the PFZ zone
 	draw_circle(pfz_location * cell_size + Vector2(cell_size / 2, cell_size / 2), pfz_radius * cell_size, Color(0, 1, 0, 0.5))
