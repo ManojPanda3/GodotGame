@@ -1,4 +1,5 @@
 extends Node2D
+@onready var player: CharacterBody2D = $"../Player"
 
 # Parameters for ocean grid
 var ocean_grid_size_x = 30
@@ -7,7 +8,7 @@ var sst_min = 20.0  # Minimum Sea Surface Temperature
 var sst_max = 30.0  # Maximum Sea Surface Temperature
 var chlorophyll_min = 0.1  # Minimum Chlorophyll level
 var chlorophyll_max = 2.0  # Maximum Chlorophyll level
-
+const c_GridInitializeCord :Vector2i = Vector2i(-150,-113); # :) c_ mean Const and private ok 
 # Time variables for updating PFZ
 var update_timer = 0
 var update_interval = 10  # Interval in seconds for PFZ updates
@@ -94,24 +95,18 @@ func resize_ocean_grid(new_width, new_height):
 	assign_ocean_conditions()
 	pfz_location = identify_PFZ(pfz_location, pfz_radius)  # Recalculate PFZ location within new grid
 
-const initialGridCord:Vector2i=Vector2i(-450,-450)# Function to draw the ocean grid and PFZ on the screen
-# Adjust the padding calculation
-var Padding = initialGridCord / Vector2i(ocean_grid_size_x, ocean_grid_size_y)
+# Function to draw the ocean grid and PFZ on the screen
+var _Padding:Vector2 = c_GridInitializeCord/Vector2i(ocean_grid_size_x,ocean_grid_size_y)
 
 func _draw():
 	var cell_size = 40  # Size of each grid cell
 	for x in range(ocean_grid_size_x):
 		for y in range(ocean_grid_size_y):
-			# Set the color based on SST (Red for higher temperatures)
 			var sst = ocean_grid[x][y]["sst"]
 			var color_value = (sst - sst_min) / (sst_max - sst_min)
 			var color = Color(1, color_value, 0)  # Red gradient for SST
 
-			# Convert Padding from Vector2i to Vector2 to perform the addition
-			var padded_position = (Vector2(x, y) + Vector2(Padding)) * cell_size
-
-			# Draw the rect with the new padded position
-			draw_rect(Rect2(padded_position, Vector2(cell_size, cell_size)), color)
+			draw_rect(Rect2((Vector2(x, y)+	_Padding) * cell_size, Vector2(cell_size, cell_size)), color)
 
 	# Draw the PFZ zone
 	draw_circle(pfz_location * cell_size + Vector2(cell_size / 2, cell_size / 2), pfz_radius * cell_size, Color(0, 1, 0, 0.5))
