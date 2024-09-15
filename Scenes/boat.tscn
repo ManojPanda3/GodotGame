@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 radius = 12.1212
 height = 78.7879
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Boat" type="CharacterBody2D"]
 z_index = 5
 scale = Vector2(0.33, 0.33)
 collision_layer = 2

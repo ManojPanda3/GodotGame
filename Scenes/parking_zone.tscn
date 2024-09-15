@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d238c3lw2rk15"]
+
+[ext_resource type="Script" path="res://Scripts/parking_zone.gd" id="1_537md"]
+
+[node name="ParkingZone" type="Area2D"]
+script = ExtResource("1_537md")

@@ -18,7 +18,5 @@ func fishing() -> String:
 
 
 func _process(delta: float) -> void:
-	if(abs(player.position.x)>350 || abs(player.position.y)>350):
-		player.position = Vector2(0,0);
 	if(Input.is_action_just_pressed("fishing")):
 		fishing();

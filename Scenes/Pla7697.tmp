@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0u53xs3d57q4"]
+
+[ext_resource type="Texture2D" uid="uid://dpie1b7nwd3d7" path="res://Assets/Cute_Fantasy_Free/Player/SquareP.png" id="1_l5yvg"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_mtqfa"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u5kxn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l5yvg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vug8i"]
+size = Vector2(8.8125, 26.5)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(24, -54)
+script = ExtResource("1_mtqfa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-24.625, 82.125)
+scale = Vector2(0.0375, 0.0941666)
+sprite_frames = SubResource("SpriteFrames_u5kxn")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-24.4063, 82.25)
+shape = SubResource("RectangleShape2D_vug8i")
