@@ -1,10 +1,10 @@
 extends Node2D
 
 const Fish = ["Minnow","Perch","Salmon","Pike","Tuna"];
-@onready var pop_up: Label = $Player/PopUp.get_node("Text")
-@onready var counter: Label = $Player/Counter.get_node("Text")
+@onready var pop_up: Label = $Boat/PopUp.get_node("Text")
+@onready var counter: Label = $Boat/Counter.get_node("Text")
 @onready var map: TileMap = $map
-@onready var player: CharacterBody2D = $Player
+@onready var player: CharacterBody2D = $Boat
 
 var fishCatched = 0;
 
