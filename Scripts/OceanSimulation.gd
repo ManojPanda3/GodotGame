@@ -8,7 +8,7 @@ var sst_min = 20.0  # Minimum Sea Surface Temperature
 var sst_max = 30.0  # Maximum Sea Surface Temperature
 var chlorophyll_min = 0.1  # Minimum Chlorophyll level
 var chlorophyll_max = 2.0  # Maximum Chlorophyll level
-const c_GridInitializeCord :Vector2i = Vector2i(-450,-450); # :) c_ mean Const and private ok 
+const c_GridInitializeCord :Vector2i = Vector2i(-150,-113); # :) c_ mean Const and private ok 
 # Time variables for updating PFZ
 var update_timer = 0
 var update_interval = 10  # Interval in seconds for PFZ updates
@@ -106,7 +106,7 @@ func _draw():
 			var color_value = (sst - sst_min) / (sst_max - sst_min)
 			var color = Color(1, color_value, 0)  # Red gradient for SST
 
-			draw_rect(Rect2((Vector2(x, y)+_Padding) * cell_size, Vector2(cell_size, cell_size)), color)
+			draw_rect(Rect2((Vector2(x, y)+	_Padding) * cell_size, Vector2(cell_size, cell_size)), color)
 
 	# Draw the PFZ zone
 	draw_circle(pfz_location * cell_size + Vector2(cell_size / 2, cell_size / 2), pfz_radius * cell_size, Color(0, 1, 0, 0.5))
